@@ -1,0 +1,56 @@
+body {
+	background-color: lightgrey;
+}
+
+.page-header {
+	text-align: right;
+	padding-right: 200px;
+}
+
+
+
+
+/*style atributes for chacter sheet*/
+.characterSheet{
+	background-color: lightblue;
+	border: solid 3px black;
+	height: 300px;
+	width: 185px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+	#name-tag {
+		text-align: center;
+	}
+
+	#characterImage {
+		height: 230px;
+		width: 150px;
+	}
+
+	#HP {
+		text-align: center;
+	}
+/*end of style atributes for chacter sheet*/
+
+
+
+#selectedCharacter {
+	margin-top: 20px;
+}
+
+#attackButton {
+	margin-left: 70px;
+}
+
+
+
+#footer {
+	margin-top: 300px;
+	text-align: center;
+}
+
+.opponentStyle {
+	background-color: red;
+}

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="us-en">
+<head>
+	<meta charset="UTF-8">
+	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<!-- JQuery -->
+  	<script src="https://code.jquery.com/jquery.js"></script>
+
+  	<!-- Javascript -->
+  	<script src="assets/javascript/game.js"></script>
+
+	<!-- Style Sheet -->
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+	<!-- add favicon -->
+	<link rel="icon" href="assets/images/helmet.png">
+
+	<title> Gladiator Game </title>
+
+</head>
+
+<body>
+	<!-- header -->
+	<div class="page-header">
+	  <h1> Welcome to the Thunderdome </h1>
+	</div>
+
+	<!-- main content container -->
+	<div class="container">
+		<!-- this row will contain the list of characters -->
+		<div class="row">
+	  		<div class="col-md-12" id="character-row">
+	  			<h3>Chacters:</h3>
+	  			<div id="characterList">
+	  				<span class="col-md-2 characterSheet" id="doctorFate">
+	  					<h5 id="name-tag">Doctor Fate</h6>
+	  					<img id="characterImage" src="assets/images/doctorFate.png"></a>
+	  					<p id="HP">HP</p>
+	  				</span>
+
+	  				<span class="col-md-2 characterSheet" id="palpatine">
+	  					<h5 id="name-tag">Emporer Palpatine</h6>
+	  					<img id="characterImage" src="assets/images/palpatine.png"></a>
+	  					<p id="HP">HP</p>
+	  				</span>
+
+	   				<span class="col-md-2 characterSheet" id="scorpion">
+	  					<h5 id="name-tag">Scorpion</h6>
+	  					<img id="characterImage" src="assets/images/scorpion.png"></a>
+	  					<p id="HP">HP</p>
+	  				</span>
+
+	  				<span class="col-md-2 characterSheet" id="gollum">
+	  					<h5 id="name-tag">Gollum</h6>
+	  					<img id="characterImage" src="assets/images/gollum.png"></a>
+	  					<p id="HP">HP</p>
+	  				</span>
+	  			</div>
+	  		</div>
+		</div>
+		
+		<!-- this row will contain the selected character -->
+		<div class="row">
+	  		<div class="col-md-3" id="selectedCharacter">
+	  		<h3>Selected Character:</h3>
+	  			
+	  		</div>
+		</div>
+
+		<div class="row">
+	  		<div class="col-md-3" id="attack">
+				<button type="button" class="btn btn-default" id="attackButton">Attack</button>	
+	  		</div>
+		</div>
+		
+		<!-- this row will contain the chosen opponent, which will be seleted below -->
+		<div class="row">
+	  		<div class="col-md-6">
+	  		<h3>Opponent:</h3>
+	  			
+	  		</div>
+		</div>
+		
+		<!-- this row will conatin the list of opponents, which will be taken from slected characters -->
+		<div class="row">
+	  		<div class="col-md-12" id="opponentOptions">
+	  		<h3>Opponent Options:</h3>
+	  			
+	  		</div>
+		</div>
+
+	</div>
+
+	<!-- footer -->
+	<div class="row" id="footer">
+		<div class="col-md-12"> 
+		<span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span>
+			Copywrite 2017. Evan Tucker </div>
+	</div>
+
+</body>
+
+</html>
