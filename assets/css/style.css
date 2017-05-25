@@ -12,7 +12,7 @@ body {
 
 /*style atributes for chacter sheet*/
 .characterSheet{
-	background-color: lightblue;
+	background-color: lightgreen;
 	border: solid 3px black;
 	height: 300px;
 	width: 185px;
@@ -52,5 +52,9 @@ body {
 }
 
 .opponentStyle {
-	background-color: red;
+	background-color: #F75D59;
+}
+
+.playerOne {
+	background-color: #6CBB3C;
 }
