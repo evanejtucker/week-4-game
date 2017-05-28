@@ -11,6 +11,9 @@ var game = {
     selectedOpponent: null,
 }
 
+var playerOneHP;
+var opponentHP;
+
 
 // Functions
 // ------------------------------------------------------------------------------------------------------------------------------
@@ -58,6 +61,7 @@ var characterSet = function(selectedCharacter) {
 
 }
 
+// function to select opponent
 var opponentSet = function(selectedCharacter) {
     if( selectedCharacter === "doctorFate") {
         game.selectedOpponent = doctorFate;
@@ -83,6 +87,7 @@ var opponentSet = function(selectedCharacter) {
   
 }
 
+// function to initialize variables for characters
 var character = function(name, hitPoints, attackPoints, counterPoints) {
     var player = {
         name: name,
@@ -95,22 +100,53 @@ var character = function(name, hitPoints, attackPoints, counterPoints) {
     return player;
 }
 
+// these variables assign stats to the charcters
+// name, hitpoints, attackpoints, counterpoints
 var doctorFate = character("doctorFate", 200, 10, 7);
 var palpatine = character("palpatine", 250, 15, 17);
 var scorpion = character("scorpion", 150, 22, 3);
 var gollum = character("gollum", 300, 4, 27);
 
 
+// function to calculate updaates stats
+var mathFunctions = function() {
+        playerOneHP = game.selectedCharacter.hitPoints - game.selectedOpponent.counterPoints;
+        opponentHP = game.selectedCharacter.hitPoints - game.selectedCharacter.attackPoints;
+        game.selectedCharacter.hitPoints = playerOneHP;
+        game.selectedOpponent.hitPoints = opponentHP;
+
+ 
+        console.log("Player One HP = " + game.selectedCharacter.hitPoints);
+        console.log("Opponent HP = " + game.selectedOpponent.hitPoints);
+        console.log("----------------------------");
+}
+
+// function to check if either player has died.
+var endGame = function() {
+
+    if (game.selectedCharacter.hitPoints < 1) {
+        alert("you died");
+    }
+
+    if (game.selectedOpponent.hitPoints < 1) {
+        alert("you win!");
+    }
+
+}
+
 
 // function to recalculate score when attack button is hit.
 var attackCalculator = function() {
     if (!game.selectedCharacter || !game.selectedOpponent) {
-        alert("no characters selected");
+        alert("Not enough characters selected");
     }
     else {
-        console.log("ready to fight");
+        mathFunctions();
+        endGame();
+        $("#HP").text(game.selectedCharacter.hitPoints);
+        $("#HP").text(game.selectedOpponent.hitPoints);
     }
-};
+}
 
 
 // Main Process
@@ -119,20 +155,19 @@ var attackCalculator = function() {
 
 $("#characterList>.characterSheet").click(function(event) {
     characterSet(event.currentTarget.id);
-    alert(event.currentTarget.id);
+    // alert(event.currentTarget.id);
+
         $("#opponentOptions>.characterSheet").on("click", function(event) {
-        opponentSet(event.currentTarget.id);
-        alert("opponent" + event.currentTarget.id);
-        $("#opponentOptions>.characterSheet").off("click");
+            opponentSet(event.currentTarget.id);
+            // alert("opponent" + event.currentTarget.id);
+            $("#opponentOptions>.characterSheet").off("click");
         });
+
 });
 
 
 
 $("#attackButton").click(attackCalculator);
-
-
-
 
 
 
