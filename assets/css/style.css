@@ -1,10 +1,18 @@
 body {
-	background-color: lightgrey;
+	/*background-color: lightgrey;*/
+	background-image: url("../images/spaceBackground.jpg");
+	color: white;
 }
 
 .page-header {
-	text-align: right;
-	padding-right: 200px;
+	/*text-align: center;*/
+	padding-left: 40px;
+
+}
+
+
+#character-row {
+	margin-bottom: 10px;
 }
 
 
@@ -16,7 +24,7 @@ body {
 	border: solid 3px black;
 	height: 300px;
 	width: 185px;
-	margin-left: 10px;
+	margin-right: 10px;
 	margin-bottom: 10px;
 }
 
@@ -32,18 +40,13 @@ body {
 	#HP {
 		text-align: center;
 	}
+
 /*end of style atributes for chacter sheet*/
 
 
-
-#selectedCharacter {
-	margin-top: 20px;
-}
-
 #attackButton {
-	margin-left: 70px;
+	/*margin-left: -10px;*/
 }
-
 
 
 #footer {
@@ -51,6 +54,8 @@ body {
 	text-align: center;
 }
 
+
+/*classes added through JQuery*/
 .opponentStyle {
 	background-color: #F75D59;
 }
@@ -61,5 +66,9 @@ body {
 
 .playerTwo {
 	background-color: #9F000F;
+}
 
+.updatedAttackButton {
+	margin-top: 180px;
+	margin-left: 10px;
 }

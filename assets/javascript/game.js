@@ -13,6 +13,10 @@ var game = {
 
 var playerOneHP;
 var opponentHP;
+var initialAttackPoints = 0;
+
+var audioElement = document.createElement("audio");
+var victorySound = document.createElement("audio");
 
 
 // Functions
@@ -22,29 +26,37 @@ var opponentHP;
 // moves character sheets to selected character, and opponent opptions, and changes style class.
 var characterSet = function(selectedCharacter) {
 
+    $("#attackButton").addClass("updatedAttackButton")
+
     if( selectedCharacter === "doctorFate") {
         game.selectedCharacter = doctorFate;
          $( "#doctorFate" ).remove().appendTo( "#selectedCharacter" ).addClass("playerOne");
          $( "#palpatine" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
-         $( "#scorpion" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
+         $( "#voldemort" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
          $( "#gollum" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
+
+         victorySound.setAttribute("src", "assets/sounds/fateHasIntervened.mp3");
 
     }
 
     else if ( selectedCharacter === "palpatine") {
         game.selectedCharacter = palpatine;
         $( "#palpatine" ).remove().appendTo( "#selectedCharacter" ).addClass("playerOne");
-        $( "#scorpion" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
+        $( "#voldemort" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
         $( "#gollum" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
         $( "#doctorFate" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
+
+        victorySound.setAttribute("src", "assets/sounds/unlimitedPower.mp3");
     }
 
-    else if ( selectedCharacter === "scorpion") {
-        game.selectedCharacter = scorpion;
-        $( "#scorpion" ).remove().appendTo( "#selectedCharacter" ).addClass("playerOne");
+    else if ( selectedCharacter === "voldemort") {
+        game.selectedCharacter = voldemort;
+        $( "#voldemort" ).remove().appendTo( "#selectedCharacter" ).addClass("playerOne");
         $( "#gollum" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
         $( "#doctorFate" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
         $( "#palpatine" ).appendTo( "#opponentOptions" ).addClass("opponentStyle");
+
+        victorySound.setAttribute("src", "assets/sounds/voldemort.mp3");
 
     }
 
@@ -53,7 +65,9 @@ var characterSet = function(selectedCharacter) {
         $( "#gollum" ).remove().appendTo( "#selectedCharacter" ).addClass("playerOne");
         $( "#doctorFate" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
         $( "#palpatine" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
-        $( "#scorpion" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
+        $( "#voldemort" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
+
+        victorySound.setAttribute("src", "assets/sounds/stupidFatHobbit.mp3");
 
     }
 
@@ -74,9 +88,9 @@ var opponentSet = function(selectedCharacter) {
         $( "#palpatine" ).remove().appendTo( "#selectedOpponent" ).addClass("playerTwo");
     }
 
-    else if ( selectedCharacter === "scorpion") {
-        game.selectedOpponent = scorpion;
-        $( "#scorpion" ).remove().appendTo( "#selectedOpponent" ).addClass("playerTwo");
+    else if ( selectedCharacter === "voldemort") {
+        game.selectedOpponent = voldemort;
+        $( "#voldemort" ).remove().appendTo( "#selectedOpponent" ).addClass("playerTwo");
     }
 
     else if ( selectedCharacter === "gollum") {
@@ -104,18 +118,35 @@ var character = function(name, hitPoints, attackPoints, counterPoints) {
 // name, hitpoints, attackpoints, counterpoints
 var doctorFate = character("doctorFate", 200, 10, 7);
 var palpatine = character("palpatine", 250, 15, 17);
-var scorpion = character("scorpion", 150, 22, 3);
+var voldemort = character("voldemort", 150, 22, 3);
 var gollum = character("gollum", 300, 4, 27);
 
 
 // function to calculate updaates stats
 var mathFunctions = function() {
+
+        // if the users attack points are greater than the opponents counter points
+        // the attack is a success, and attackpoints will be updated
+        if (game.selectedCharacter.attackPoints > game.selectedOpponent.counterPoints) {
+            console.log("Attack Success");
+
+            // if it is a succesful attack, update the user attack points
+            newAttackPoints = game.selectedCharacter.attackPoints + game.selectedCharacter.attackPoints;
+            // initialAttackPoints = game.selectedCharacter.attackPoints;
+            game.selectedCharacter.attackPoints = newAttackPoints;
+            console.log("damage = " + newAttackPoints);
+        }
+
+        // math that update the user HP, by subtracting the opponents counterpoints
         playerOneHP = game.selectedCharacter.hitPoints - game.selectedOpponent.counterPoints;
-        opponentHP = game.selectedCharacter.hitPoints - game.selectedCharacter.attackPoints;
         game.selectedCharacter.hitPoints = playerOneHP;
+
+        // math that update the opponent HP, by subtracting the users attack points
+        // if the attack was successful, the user attack points should increase by its base stat
+        opponentHP = game.selectedOpponent.hitPoints - game.selectedCharacter.attackPoints;
         game.selectedOpponent.hitPoints = opponentHP;
 
- 
+        // testiing / debugging
         console.log("Player One HP = " + game.selectedCharacter.hitPoints);
         console.log("Opponent HP = " + game.selectedOpponent.hitPoints);
         console.log("----------------------------");
@@ -124,12 +155,27 @@ var mathFunctions = function() {
 // function to check if either player has died.
 var endGame = function() {
 
+    if (game.selectedOpponent.hitPoints < 11 && game.selectedOpponent.hitPoints > 0) {
+        audioElement.setAttribute("src", "assets/sounds/finishHim.mp3");
+        audioElement.play();
+    }
+
     if (game.selectedCharacter.hitPoints < 1) {
         alert("you died");
     }
 
     if (game.selectedOpponent.hitPoints < 1) {
-        alert("you win!");
+
+        victorySound.play();
+        console.log("you win!");
+        $("#selectedOpponent").empty();
+
+        // reset player
+        $("#opponentOptions>.characterSheet").on("click", function(event) {
+            opponentSet(event.currentTarget.id);
+            // alert("opponent" + event.currentTarget.id);
+            $("#opponentOptions>.characterSheet").off("click");
+        });
     }
 
 }
@@ -144,7 +190,7 @@ var attackCalculator = function() {
         mathFunctions();
         endGame();
         $("#HP").text(game.selectedCharacter.hitPoints);
-        $("#HP").text(game.selectedOpponent.hitPoints);
+        // $("#HP").text(game.selectedOpponent.hitPoints);
     }
 }
 
@@ -162,7 +208,6 @@ $("#characterList>.characterSheet").click(function(event) {
             // alert("opponent" + event.currentTarget.id);
             $("#opponentOptions>.characterSheet").off("click");
         });
-
 });
 
 

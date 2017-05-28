@@ -28,7 +28,7 @@
 <body>
 	<!-- header -->
 	<div class="page-header">
-	  <h1> Welcome to the Thunderdome </h1>
+	  <h1> Gladiators... IN SPACE!!!!! </h1>
 	</div>
 
 	<!-- main content container -->
@@ -38,6 +38,7 @@
 	  		<div class="col-md-12" id="character-row">
 	  			<h3>Chacters:</h3>
 	  			<div id="characterList">
+
 	  				<span class="col-md-2 characterSheet" id="doctorFate">
 	  					<h5 id="name-tag">Doctor Fate</h6>
 	  					<img id="characterImage" src="assets/images/doctorFate.png"></a>
@@ -50,9 +51,9 @@
 	  					<p id="HP">HP</p>
 	  				</span>
 
-	   				<span class="col-md-2 characterSheet" id="scorpion">
-	  					<h5 id="name-tag">Scorpion</h6>
-	  					<img id="characterImage" src="assets/images/scorpion.png"></a>
+	   				<span class="col-md-2 characterSheet" id="voldemort">
+	  					<h5 id="name-tag">Voldemort</h6>
+	  					<img id="characterImage" src="assets/images/voldemort.png"></a>
 	  					<p id="HP">HP</p>
 	  				</span>
 
@@ -65,33 +66,27 @@
 	  		</div>
 		</div>
 		
-		<!-- this row will contain the selected character -->
+		<!-- this row will contain the selected character, selcted opponent, and attack button -->
 		<div class="row">
-	  		<div class="col-md-3" id="selectedCharacter">
-	  		<h3>Selected Character:</h3>
-	  			
-	  		</div>
-		</div>
 
-		<div class="row">
-	  		<div class="col-md-3" id="attack">
+	  		<div class="col-md-2" id="selectedCharacter">
+	  			<h3>Player One:</h3>
+	  		</div>
+
+	  		<div class="col-md-1" id="attack">
 				<button type="button" class="btn btn-default" id="attackButton">Attack</button>	
 	  		</div>
-		</div>
-		
-		<!-- this row will contain the chosen opponent, which will be seleted below -->
-		<div class="row">
-	  		<div class="col-md-6" id="selectedOpponent">
-	  		<h3>Opponent:</h3>
-	  			
+
+	  		<div class="col-md-2" id="selectedOpponent">
+	  			<h3 id=opponentTag> Opponent:</h3>
 	  		</div>
+	  		
 		</div>
 		
 		<!-- this row will conatin the list of opponents, which will be taken from slected characters -->
 		<div class="row">
-	  		<div class="col-md-12" id="opponentOptions">
-	  		<h3>Opponent Options:</h3>
-	  			
+	  		<div class="col-md-8" id="opponentOptions">
+	  			<h3>Opponent Options:</h3>	
 	  		</div>
 		</div>
 
