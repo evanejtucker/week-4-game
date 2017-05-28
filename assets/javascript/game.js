@@ -5,137 +5,135 @@ $(document).ready(function() {
 // Golbal variables
 // ------------------------------------------------------------------------------------------------------------------------------
 
-var characters = ["darthVader", "doctorFate", "scorpion", "gollum"];
 
-var isSelectedCharacter = "";
-
-    //stat variables
-    var healthPoints = 0;
-    var attackPoints = 0;
-    var counterAttackPoints = 0;
+var game = {
+    selectedCharacter: null, 
+    selectedOpponent: null,
+}
 
 
 // Functions
 // ------------------------------------------------------------------------------------------------------------------------------
 
 
-// this function check which characterSheet is clicked, then sets "isSelectedCharacter" to that chatacter
-var characterSelect = function($characterClicked) {
-    var checkDoctorFate = $characterClicked.is("#doctorFate");
-    var checkPalpatine = $characterClicked.is("#palpatine");
-    var checkScorpion = $characterClicked.is("#scorpion");
-    var checkGollum = $characterClicked.is("#gollum");
-
-
-    if (checkDoctorFate === true) {
-        console.log("fate has interviened");
-        isSelectedCharacter = "doctorFate";   
-        healthPoints = 100;
-    }
-
-    else if (checkPalpatine === true) {
-        console.log("you have selected Emporer Palpatine!");
-        isSelectedCharacter = "palpatine";
-        healthPoints = 200;
-        
-    }
-
-    else if (checkScorpion === true) {
-        console.log("you have selected Scorpion!");
-        isSelectedCharacter = "scorpion";
-        healthPoints = 300;
-
-    }
-
-    else if (checkGollum === true) {
-        console.log("you have selected Gollum!");
-        isSelectedCharacter = "gollum";
-        healthPoints = 400;
-    }
-}
-
 // moves character sheets to selected character, and opponent opptions, and changes style class.
-var characterSet = function() {
+var characterSet = function(selectedCharacter) {
 
-    if( isSelectedCharacter === "doctorFate") {
-         $( "#doctorFate" ).appendTo( "#selectedCharacter" ).addClass("playerOne");
-         $( "#palpatine" ).appendTo( "#opponentOptions" ).addClass("opponentStyle");
-         $( "#scorpion" ).appendTo( "#opponentOptions" ).addClass("opponentStyle");
-         $( "#gollum" ).appendTo( "#opponentOptions" ).addClass("opponentStyle");
- 
-         $("#character-row").empty();
-
-    }
-
-    else if ( isSelectedCharacter === "palpatine") {
-        $( "#palpatine" ).appendTo( "#selectedCharacter" ).addClass("playerOne");
-        $( "#scorpion" ).appendTo( "#opponentOptions" ).addClass("opponentStyle");
-        $( "#gollum" ).appendTo( "#opponentOptions" ).addClass("opponentStyle");
-        $( "#doctorFate" ).appendTo( "#opponentOptions" ).addClass("opponentStyle");
-        
-        $("#character-row").empty()
+    if( selectedCharacter === "doctorFate") {
+        game.selectedCharacter = doctorFate;
+         $( "#doctorFate" ).remove().appendTo( "#selectedCharacter" ).addClass("playerOne");
+         $( "#palpatine" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
+         $( "#scorpion" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
+         $( "#gollum" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
 
     }
 
-    else if ( isSelectedCharacter === "scorpion") {
-        $( "#scorpion" ).appendTo( "#selectedCharacter" ).addClass("playerOne");
-        $( "#gollum" ).appendTo( "#opponentOptions" ).addClass("opponentStyle");
-        $( "#doctorFate" ).appendTo( "#opponentOptions" ).addClass("opponentStyle");
+    else if ( selectedCharacter === "palpatine") {
+        game.selectedCharacter = palpatine;
+        $( "#palpatine" ).remove().appendTo( "#selectedCharacter" ).addClass("playerOne");
+        $( "#scorpion" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
+        $( "#gollum" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
+        $( "#doctorFate" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
+    }
+
+    else if ( selectedCharacter === "scorpion") {
+        game.selectedCharacter = scorpion;
+        $( "#scorpion" ).remove().appendTo( "#selectedCharacter" ).addClass("playerOne");
+        $( "#gollum" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
+        $( "#doctorFate" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
         $( "#palpatine" ).appendTo( "#opponentOptions" ).addClass("opponentStyle");
 
-        $("#character-row").empty();
+    }
+
+    else if ( selectedCharacter === "gollum") {
+        game.selectedCharacter = gollum;
+        $( "#gollum" ).remove().appendTo( "#selectedCharacter" ).addClass("playerOne");
+        $( "#doctorFate" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
+        $( "#palpatine" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
+        $( "#scorpion" ).remove().appendTo( "#opponentOptions" ).addClass("opponentStyle");
 
     }
 
-    else if ( isSelectedCharacter === "gollum") {
-        $( "#gollum" ).appendTo( "#selectedCharacter" ).addClass("playerOne");
-        $( "#doctorFate" ).appendTo( "#opponentOptions" ).addClass("opponentStyle");
-        $( "#palpatine" ).appendTo( "#opponentOptions" ).addClass("opponentStyle");
-        $( "#scorpion" ).appendTo( "#opponentOptions" ).addClass("opponentStyle");
+    $("#character-row").empty();
 
-        $("#character-row").empty();
+}
+
+var opponentSet = function(selectedCharacter) {
+    if( selectedCharacter === "doctorFate") {
+        game.selectedOpponent = doctorFate;
+        $( "#doctorFate" ).remove().appendTo( "#selectedOpponent" ).addClass("playerTwo");
 
     }
 
+    else if ( selectedCharacter === "palpatine") {
+        game.selectedOpponent = palpatine;
+        $( "#palpatine" ).remove().appendTo( "#selectedOpponent" ).addClass("playerTwo");
+    }
+
+    else if ( selectedCharacter === "scorpion") {
+        game.selectedOpponent = scorpion;
+        $( "#scorpion" ).remove().appendTo( "#selectedOpponent" ).addClass("playerTwo");
+    }
+
+    else if ( selectedCharacter === "gollum") {
+        game.selectedOpponent = gollum;
+        $( "#gollum" ).remove().appendTo( "#selectedOpponent" ).addClass("playerTwo");
+
+    }
+  
 }
 
-var opponentSet = function() {
+var character = function(name, hitPoints, attackPoints, counterPoints) {
+    var player = {
+        name: name,
+        hitPoints: hitPoints,
+        attackPoints: attackPoints,
+        counterPoints: counterPoints,
 
-
+    }
+    $("#"+ name + ">#HP").text(hitPoints) 
+    return player;
 }
 
-// sets style fro opponent options
-var styleSet = function() {
-    $("selctedCharacter").addClass("playerOne");
-    $("OpponentOptions").addClass("opponentStyle");
+var doctorFate = character("doctorFate", 200, 10, 7);
+var palpatine = character("palpatine", 250, 15, 17);
+var scorpion = character("scorpion", 150, 22, 3);
+var gollum = character("gollum", 300, 4, 27);
 
-    
-}
+
 
 // function to recalculate score when attack button is hit.
 var attackCalculator = function() {
-
-
-}
-
+    if (!game.selectedCharacter || !game.selectedOpponent) {
+        alert("no characters selected");
+    }
+    else {
+        console.log("ready to fight");
+    }
+};
 
 
 // Main Process
 // ------------------------------------------------------------------------------------------------------------------------------
 
 
-$(".characterSheet").click(function(){
-    characterSelect($(this));
-    characterSet();
-
+$("#characterList>.characterSheet").click(function(event) {
+    characterSet(event.currentTarget.id);
+    alert(event.currentTarget.id);
+        $("#opponentOptions>.characterSheet").on("click", function(event) {
+        opponentSet(event.currentTarget.id);
+        alert("opponent" + event.currentTarget.id);
+        $("#opponentOptions>.characterSheet").off("click");
+        });
 });
 
 
-$("#attackButton").click(function() {
-    console.log("button works");
-    $("#HP").html(healthPoints);
 
-});
+$("#attackButton").click(attackCalculator);
+
+
+
+
 
 
 });
