@@ -13,10 +13,14 @@ var game = {
 
 var playerOneHP;
 var opponentHP;
-var initialAttackPoints = 0;
+var attackMultiplier = 0;
+var updatedAttack;
+var newAttackPoints;
+
 
 var audioElement = document.createElement("audio");
 var victorySound = document.createElement("audio");
+var gameOver = document.createElement("audio");
 
 
 // Functions
@@ -127,14 +131,14 @@ var mathFunctions = function() {
 
         // if the users attack points are greater than the opponents counter points
         // the attack is a success, and attackpoints will be updated
-        if (game.selectedCharacter.attackPoints > game.selectedOpponent.counterPoints) {
-            console.log("Attack Success");
+        if (game.selectedCharacter.attackPoints > game.selectedOpponent.counterPoints  || newAttackPoints > game.selectedOpponent.counterPoints) {
 
-            // if it is a succesful attack, update the user attack points
-            newAttackPoints = game.selectedCharacter.attackPoints + game.selectedCharacter.attackPoints;
-            // initialAttackPoints = game.selectedCharacter.attackPoints;
-            game.selectedCharacter.attackPoints = newAttackPoints;
+            console.log("Attack Success");
+            updatedAttack = game.selectedCharacter.attackPoints * attackMultiplier;
+            newAttackPoints = updatedAttack + game.selectedCharacter.attackPoints;
             console.log("damage = " + newAttackPoints);
+            attackMultiplier++;
+
         }
 
         // math that update the user HP, by subtracting the opponents counterpoints
@@ -143,7 +147,7 @@ var mathFunctions = function() {
 
         // math that update the opponent HP, by subtracting the users attack points
         // if the attack was successful, the user attack points should increase by its base stat
-        opponentHP = game.selectedOpponent.hitPoints - game.selectedCharacter.attackPoints;
+        opponentHP = game.selectedOpponent.hitPoints - newAttackPoints;
         game.selectedOpponent.hitPoints = opponentHP;
 
         // testiing / debugging
@@ -155,15 +159,14 @@ var mathFunctions = function() {
 // function to check if either player has died.
 var endGame = function() {
 
-    if (game.selectedOpponent.hitPoints < 11 && game.selectedOpponent.hitPoints > 0) {
-        audioElement.setAttribute("src", "assets/sounds/finishHim.mp3");
-        audioElement.play();
-    }
-
+    // user lost
     if (game.selectedCharacter.hitPoints < 1) {
         alert("you died");
+        gameOver.setAttribute("src", "assets/sounds/gameOver.mp3");
+        gameOver.play();
     }
 
+    // user won
     if (game.selectedOpponent.hitPoints < 1) {
 
         victorySound.play();
@@ -177,6 +180,12 @@ var endGame = function() {
             $("#opponentOptions>.characterSheet").off("click");
         });
     }
+
+    // play sound if opponent HP is less than 10
+        if (game.selectedOpponent.hitPoints < 11 && game.selectedOpponent.hitPoints > 0) {
+            audioElement.setAttribute("src", "assets/sounds/finishHim.mp3");
+            audioElement.play();
+        }
 
 }
 
