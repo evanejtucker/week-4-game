@@ -11,16 +11,18 @@ var game = {
     selectedOpponent: null,
 }
 
-var playerOneHP;
-var opponentHP;
-var attackMultiplier = 0;
-var updatedAttack;
-var newAttackPoints;
 
+    // math variables
+    var playerOneHP;
+    var opponentHP;
+    var attackMultiplier = 0;
+    var updatedAttack;
+    var newAttackPoints;
 
-var audioElement = document.createElement("audio");
-var victorySound = document.createElement("audio");
-var gameOver = document.createElement("audio");
+    // sound variables
+    var audioElement = document.createElement("audio");
+    var victorySound = document.createElement("audio");
+    var gameOver = document.createElement("audio");
 
 
 // Functions
@@ -114,7 +116,7 @@ var character = function(name, hitPoints, attackPoints, counterPoints) {
         counterPoints: counterPoints,
 
     }
-    $("#"+ name + ">#HP").text(hitPoints) 
+    $("#"+ name + ">.HP").text(hitPoints) 
     return player;
 }
 
@@ -138,6 +140,7 @@ var mathFunctions = function() {
             newAttackPoints = updatedAttack + game.selectedCharacter.attackPoints;
             console.log("damage = " + newAttackPoints);
             attackMultiplier++;
+            opponentHP = game.selectedOpponent.hitPoints - newAttackPoints;
 
         }
 
@@ -147,7 +150,7 @@ var mathFunctions = function() {
 
         // math that update the opponent HP, by subtracting the users attack points
         // if the attack was successful, the user attack points should increase by its base stat
-        opponentHP = game.selectedOpponent.hitPoints - newAttackPoints;
+        opponentHP = game.selectedOpponent.hitPoints - game.selectedCharacter.attackPoints;
         game.selectedOpponent.hitPoints = opponentHP;
 
         // testiing / debugging
@@ -198,8 +201,8 @@ var attackCalculator = function() {
     else {
         mathFunctions();
         endGame();
-        $("#HP").text(game.selectedCharacter.hitPoints);
-        // $("#HP").text(game.selectedOpponent.hitPoints);
+        $("#selectedCharacter .HP").text(game.selectedCharacter.hitPoints);
+        $("#selectedOpponent .HP").text(game.selectedOpponent.hitPoints);
     }
 }
 
