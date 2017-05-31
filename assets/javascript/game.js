@@ -177,7 +177,7 @@ var endGame = function() {
         $("#selectedOpponent").empty();
 
         // reset player
-        $("#opponentOptions>.characterSheet").on("click", function(event) {
+        $("#opponentOptions .characterSheet").on("click", function(event) {
             opponentSet(event.currentTarget.id);
             // alert("opponent" + event.currentTarget.id);
             $("#opponentOptions>.characterSheet").off("click");
