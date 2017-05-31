@@ -140,18 +140,24 @@ var mathFunctions = function() {
             newAttackPoints = updatedAttack + game.selectedCharacter.attackPoints;
             console.log("damage = " + newAttackPoints);
             attackMultiplier++;
-            opponentHP = game.selectedOpponent.hitPoints - newAttackPoints;
 
+            // math that update the opponent HP, by subtracting the users attack points
+            // if the attack was successful, the user attack points should increase by its base stat
+            opponentHP = game.selectedOpponent.hitPoints - newAttackPoints;
+            game.selectedOpponent.hitPoints = opponentHP
+
+        }
+
+        else {
+            // math that update the opponent HP, by subtracting the users attack points
+            opponentHP = game.selectedOpponent.hitPoints - game.selectedCharacter.attackPoints;
+            game.selectedOpponent.hitPoints = opponentHP
         }
 
         // math that update the user HP, by subtracting the opponents counterpoints
         playerOneHP = game.selectedCharacter.hitPoints - game.selectedOpponent.counterPoints;
         game.selectedCharacter.hitPoints = playerOneHP;
 
-        // math that update the opponent HP, by subtracting the users attack points
-        // if the attack was successful, the user attack points should increase by its base stat
-        opponentHP = game.selectedOpponent.hitPoints - game.selectedCharacter.attackPoints;
-        game.selectedOpponent.hitPoints = opponentHP;
 
         // testiing / debugging
         console.log("Player One HP = " + game.selectedCharacter.hitPoints);
